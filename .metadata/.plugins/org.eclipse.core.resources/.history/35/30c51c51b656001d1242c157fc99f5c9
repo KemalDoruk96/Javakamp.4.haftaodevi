@@ -1,0 +1,101 @@
+package homework_4.week.kodloma.io.Devs.business.concretes;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import homework_4.week.kodloma.io.Devs.business.abstracts.LanguageService;
+import homework_4.week.kodloma.io.Devs.dataAccess.abstracts.LanguageRepository;
+import homework_4.week.kodloma.io.Devs.entities.concretes.Language;
+
+@Service // bu sınıf bir business nesnesidir
+public class LanguageManager implements LanguageService {
+
+	List<Language> languages;
+	
+	private LanguageRepository languageRepository;
+	
+	
+	
+	@Autowired  // brandservicein implemente eden classı newleyerek getiriyor
+	public LanguageManager(LanguageRepository languageRepository) {
+		super();
+		this.languageRepository = languageRepository;
+	}
+
+
+
+	@Override
+	public List<Language> getAll() {
+		// dilleri listeleyeceğimiz kodlar
+		return languageRepository.getAll();
+	}
+
+
+
+	@Override
+	public void delete(Language language) {
+	      languageRepository.delete(language);
+	      
+	      
+	 }
+
+
+
+	@Override
+	public Language getId(int id) throws Exception {
+		for(Language lng:languages){
+			if(lng.getId()==id) {
+			 return languageRepository.getId(id);
+		}
+			else {
+				throw new Exception ("Getirmek istenilen Id'li kurs yok");
+			}
+		}
+		return null;
+		
+		
+	}
+
+
+
+	@Override
+	public void add(Language language) throws Exception {
+		
+		
+//		for(Language lng:languages) {
+//	    	 if(lng.getId() != language.getId()  || lng.getName() != language.getName()) {
+//	    		 
+//	    		 languageRepository.add(language);
+//	         }
+//	    	 
+//	      }
+//		
+//		if(language.getName()==null) {
+//			throw new Exception ("Program ismi boş geçilmez");
+//			
+//			
+//		}
+		
+		for(Language lng:languages) {
+			if(lng.getId() == language.getId() || lng.getName() == language.getName()) {
+				throw new Exception ("Aynı program tekrar eklenemez");			
+			}
+			else {
+				languageRepository.add(language);
+			}
+			
+		}
+			
+		
+	    	 
+		
+		
+	    	 
+	     
+	}
+
+	
+	
+}

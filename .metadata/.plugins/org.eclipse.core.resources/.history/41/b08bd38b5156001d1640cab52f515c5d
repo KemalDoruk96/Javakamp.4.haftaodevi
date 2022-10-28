@@ -1,0 +1,73 @@
+package homework_4.week.kodloma.io.Devs.business.concretes;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import homework_4.week.kodloma.io.Devs.business.abstracts.LanguageService;
+import homework_4.week.kodloma.io.Devs.dataAccess.abstracts.LanguageRepository;
+import homework_4.week.kodloma.io.Devs.entities.concretes.Language;
+
+@Service // bu sınıf bir business nesnesidir
+public class LanguageManager implements LanguageService {
+
+	List<Language> languages;
+	
+	private LanguageRepository languageRepository;
+	
+	
+	
+	@Autowired  // brandservicein implemente eden classı newleyerek getiriyor
+	public LanguageManager(LanguageRepository languageRepository) {
+		super();
+		this.languageRepository = languageRepository;
+	}
+
+
+
+	@Override
+	public List<Language> getAll() {
+		// dilleri listeleyeceğimiz kodlar
+		return languageRepository.getAll();
+	}
+
+
+
+	@Override
+	public void delete(Language language) {
+	      languageRepository.delete(language);
+	      
+	      
+	 }
+
+
+
+	@Override
+	public Language getId(int id) {
+		// TODO Auto-generated method stub
+		return languageRepository.getId(id);
+	}
+
+
+
+	@Override
+	public void add(Language language) throws Exception {
+		
+		
+		for(Language lng:languages) {
+	    	 if(lng.getId() != language.getId() && lng.getName() != language.getName()) {
+	    		 
+	    		 languages.add(language);
+	         }
+	    	 else
+	    		 throw new Exception("Aynı kurs ismi tekrar eklenemez");	    	 
+	    	 }
+	    	 
+	    	 
+	     
+	}
+
+	
+	
+}

@@ -1,0 +1,14 @@
+package homework_4.week.kodloma.io.Devs.business.abstracts;
+
+import java.util.List;
+
+import homework_4.week.kodloma.io.Devs.entities.concretes.Language;
+
+public interface LanguageService {
+
+	List<Language> getAll();
+	Language getId(int id);
+	void delete(int id);
+	
+	
+}
